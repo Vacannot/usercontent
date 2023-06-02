@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { createContext, useContext, useEffect, useState } from 'react';
-import { useUser } from './UserContext';
+import axios from "axios";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useUser } from "./UserContext";
 
 export interface Post {
   _id: string;
@@ -36,9 +36,9 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
   const { user } = useUser();
 
   const createPost = async (title: string, content: string) => {
-    if (!user) throw new Error('User is not logged in');
+    if (!user) throw new Error("User is not logged in");
 
-    const response = await axios.post('/api/posts', {
+    const response = await axios.post("/api/posts", {
       title,
       content,
     });
@@ -48,13 +48,8 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
     );
   };
 
-  const fetchPosts = async () => {
-    const response = await axios.get('/api/posts');
-    setPosts(response.data);
-  };
-
   const updatePost = async (updatedPost: Post) => {
-    if (!user) throw new Error('User is not logged in');
+    if (!user) throw new Error("User is not logged in");
 
     const response = await axios.put(`/api/posts/${updatedPost._id}`, {
       ...updatedPost,
@@ -70,8 +65,13 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
     });
   };
 
+  const fetchPosts = async () => {
+    const response = await axios.get("/api/posts");
+    setPosts(response.data);
+  };
+
   const deletePost = async (postId: string) => {
-    if (!user) throw new Error('User is not logged in');
+    if (!user) throw new Error("User is not logged in");
 
     await axios.delete(`/api/posts/${postId}`);
 

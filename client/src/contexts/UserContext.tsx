@@ -79,11 +79,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     setUser(null);
   };
 
-  const getAllUsers = async () => {
-    const response = await axios.get("/api/users");
-    setUsers(response.data);
-  };
-
   const updateUserRole = async (userId: string, newRole: boolean) => {
     await axios.put(`/api/users/${userId}`, { isAdmin: newRole });
     if (users) {
@@ -108,6 +103,11 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       const updatedUsers = users.filter((user) => user._id !== userId);
       setUsers(updatedUsers);
     }
+  };
+
+  const getAllUsers = async () => {
+    const response = await axios.get("/api/users");
+    setUsers(response.data);
   };
 
   return (
