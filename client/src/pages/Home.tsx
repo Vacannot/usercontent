@@ -25,7 +25,7 @@ function Home() {
           }}
         >
           <Card>
-            <h2>Log in to see and make posts!</h2>
+            <h2>Log in to make posts!</h2>
           </Card>
         </Box>
       )}
