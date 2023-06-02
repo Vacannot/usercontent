@@ -20,6 +20,8 @@ MONGO_URL = mongodb+srv://XXXXXXXXXXX
 och
 SESSION_SECRET = XXXXXXXXXXXXXXX
 
+## KRAV
+
 - [x] Git & GitHub har använts
 - [x] Projektmappen innehåller en README.md fil (läs ovan för mer info)
 - [Z] Uppgiften lämnas in i tid!
