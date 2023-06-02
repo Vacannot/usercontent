@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { createContext, useContext, useEffect, useState } from 'react';
+import axios from "axios";
+import { createContext, useContext, useEffect, useState } from "react";
 
 interface User {
   _id: string;
@@ -42,7 +42,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const checkLoggedIn = async () => {
-      const response = await axios.get('/api/users/auth');
+      const response = await axios.get("/api/users/auth");
       if (response.data.success) {
         setUser(response.data.user);
       }
@@ -52,7 +52,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   }, []);
 
   const register = async (username: string, password: string) => {
-    await axios.post('/api/users/register', {
+    await axios.post("/api/users/register", {
       username,
       password,
     });
@@ -63,7 +63,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     password: string
   ): Promise<boolean> => {
     try {
-      const response = await axios.post('/api/users/login', {
+      const response = await axios.post("/api/users/login", {
         username,
         password,
       });
@@ -75,12 +75,12 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   };
 
   const logout = async () => {
-    await axios.post('/api/users/logout');
+    await axios.post("/api/users/logout");
     setUser(null);
   };
 
   const getAllUsers = async () => {
-    const response = await axios.get('/api/users');
+    const response = await axios.get("/api/users");
     setUsers(response.data);
   };
 
@@ -89,7 +89,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     if (users) {
       const updatedUsers = users.map((user) => {
         if (user._id === userId) {
-          // Update the current user's role if necessary
           if (user._id === loggedInUser?._id) {
             setUser({ ...user, isAdmin: newRole });
           }

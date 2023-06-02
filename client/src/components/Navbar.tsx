@@ -51,7 +51,6 @@ const useStyles = createStyles((theme) => ({
 export function Navbar() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
-  /*   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false); */
   const { classes, theme } = useStyles();
   const { user: loggedInUser } = useUser();
   const { user, logout } = useUser();

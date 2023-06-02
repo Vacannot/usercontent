@@ -32,7 +32,6 @@ export const updatePost = async (req: Request, res: Response) => {
       .json(`You do not have permission to update this post`);
   }
 
-  // Validate input
   const schema = Joi.object({
     title: Joi.string().trim().min(2).required(),
     content: Joi.string().trim().min(5).required(),
@@ -80,7 +79,6 @@ export const createPost = async (req: Request, res: Response) => {
   const { title, content } = req.body;
   const author = req.session!.user._id;
 
-  // Validate input
   const schema = Joi.object({
     title: Joi.string().trim().min(2).required(),
     content: Joi.string().trim().min(5).required(),
