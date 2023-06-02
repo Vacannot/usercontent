@@ -6,7 +6,6 @@ import {
   getPosts,
   updatePost,
 } from "../controllers/post-controller";
-
 import { ensureAuthentication } from "../middlewares/ensureAuthentication";
 
 const postRouter = express.Router();
