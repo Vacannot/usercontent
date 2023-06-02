@@ -65,7 +65,7 @@ function AdminPage() {
                     <Button
                       variant="outline"
                       onClick={() => handleMakeAdmin(user._id, !user.isAdmin)}
-                      color={user.isAdmin ? "red" : "green"}
+                      color={user.isAdmin ? "red" : "blue"}
                     >
                       {user.isAdmin ? "Remove Admin" : "Make Admin"}
                     </Button>

@@ -182,7 +182,7 @@ export function Navbar() {
                   to="/login"
                   onClick={() => toggleDrawer()}
                 >
-                  <Button fullWidth variant="outline" color="green">
+                  <Button fullWidth variant="outline" color="blue">
                     Log in
                   </Button>
                 </Link>
@@ -193,7 +193,7 @@ export function Navbar() {
                   to="/register"
                   onClick={() => toggleDrawer()}
                 >
-                  <Button fullWidth color="green">
+                  <Button fullWidth color="blue">
                     Sign up
                   </Button>
                 </Link>
