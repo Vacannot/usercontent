@@ -1,5 +1,5 @@
 {
-  "name": "@plugga-tech/react-express-user-content-ts-server-template",
+  "name": "server",
   "version": "1.0.2",
   "author": "plugga.tech",
   "description": "En självrättande inlämningsuppgift.",
