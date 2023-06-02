@@ -1,43 +1,26 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import Joi from "joi";
 import { PostModel } from "../models/post-model";
 
-export const ensureAuthenticated = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  if (!req.session?.user) {
-    next({ status: 401, message: "Unauthorized" });
-  } else {
-    next();
-  }
-};
-
-// Permission check function
 const hasPermission = (post: any, userId: string, isAdmin: boolean) => {
   return post.author.toString() === userId || isAdmin;
 };
 
-// Validation error check function
 const validateSchema = (schema: any, payload: any, res: Response) => {
   const { error } = schema.validate(payload);
   if (error) {
-    throw { status: 400, message: error.message };
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    }
   }
 };
 
-// Update and create post schema
 const postSchema = Joi.object({
   title: Joi.string().trim().min(2).required(),
   content: Joi.string().trim().min(5).required(),
 });
 
-export const createPost = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const createPost = async (req: Request, res: Response) => {
   const { title, content } = req.body;
   const author = req.session!.user._id;
 
@@ -52,16 +35,14 @@ export const createPost = async (
 
     const savedPost = await newPost.save();
     res.status(201).json(savedPost);
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    }
   }
 };
 
-export const updatePost = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const updatePost = async (req: Request, res: Response) => {
   const { id: postId } = req.params;
   const { user } = req.session!;
 
@@ -69,14 +50,11 @@ export const updatePost = async (
     const post = await PostModel.findById(postId);
 
     if (!post) {
-      throw { status: 404, message: `Post with ID ${postId} not found` };
+      return res.status(404).json(`Post with ID ${postId} not found`);
     }
 
     if (!hasPermission(post, user._id, user.isAdmin)) {
-      throw {
-        status: 403,
-        message: `You do not have permission to update this post`,
-      };
+      return res.status(403).json(`You lack permission to update this post`);
     }
 
     const { _id, ...requestBody } = req.body;
@@ -87,16 +65,14 @@ export const updatePost = async (
       new: true,
     });
     res.status(200).json(updatedPost);
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    }
   }
 };
 
-export const deletePost = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const deletePost = async (req: Request, res: Response) => {
   const { id: postId } = req.params;
   const { user } = req.session!;
 
@@ -109,14 +85,16 @@ export const deletePost = async (
     if (!hasPermission(post, user._id, user.isAdmin)) {
       throw {
         status: 403,
-        message: `You do not have permission to delete this post`,
+        message: `You lack not have permission to delete this post`,
       };
     }
 
     await post.delete();
     res.status(204).end();
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    }
   }
 };
 
@@ -125,11 +103,7 @@ export const getPosts = async (req: Request, res: Response) => {
   res.json(posts);
 };
 
-export const getPostById = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const getPostById = async (req: Request, res: Response) => {
   const { id: postId } = req.params;
 
   try {
@@ -141,7 +115,9 @@ export const getPostById = async (
       throw { status: 404, message: `Post with ID ${postId} not found` };
     }
     res.json(post);
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    }
   }
 };
