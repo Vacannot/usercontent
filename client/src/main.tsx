@@ -1,21 +1,20 @@
-import { MantineProvider } from '@mantine/core';
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { MantineProvider } from "@mantine/core";
+import React from "react";
+import ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
-} from 'react-router-dom';
-import App from './App';
-import { PostProvider } from './contexts/PostContext';
-import { UserProvider } from './contexts/UserContext';
-import './main.css';
-import AdminPage from './pages/AdminPage';
-import Home from './pages/Home';
-import { LoginUser } from './pages/LoginUser';
-import RegisterUser from './pages/RegisterUser';
-import UserProfile from './pages/UserProfile';
+} from "react-router-dom";
+import App from "./App";
+import { PostProvider } from "./contexts/PostContext";
+import { UserProvider } from "./contexts/UserContext";
+import "./main.css";
+import AdminPage from "./pages/AdminPage";
+import Home from "./pages/Home";
+import { LoginUser } from "./pages/LoginUser";
+import RegisterUser from "./pages/RegisterUser";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,13 +22,12 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="/login" element={<LoginUser />} />
       <Route path="/register" element={<RegisterUser />} />
-      <Route path="/profile" element={<UserProfile />} />
       <Route path="/admin" element={<AdminPage />} />
     </Route>
   )
 );
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <UserProvider>

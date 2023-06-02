@@ -1,27 +1,26 @@
 import {
   Button,
   Container,
-  Flex,
   Paper,
   PasswordInput,
   TextInput,
   Title,
-} from '@mantine/core';
-import { useFormik } from 'formik';
-import { ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
-import { useUser } from '../contexts/UserContext';
+} from "@mantine/core";
+import { useFormik } from "formik";
+import { ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+import { useUser } from "../contexts/UserContext";
 
 const RegisterValidationSchema = Yup.object().shape({
   username: Yup.string()
-    .required('Username is required')
-    .min(2, 'Username must be at least 2 characters')
-    .max(50, 'Username must be at most 50 characters'),
+    .required("Username is required")
+    .min(2, "Username must be at least 2 characters")
+    .max(50, "Username must be at most 50 characters"),
   password: Yup.string()
-    .required('Password is required')
-    .min(5, 'Password must be at least 5 characters')
-    .max(100, 'Password must be at most 100 characters'),
+    .required("Password is required")
+    .min(5, "Password must be at least 5 characters")
+    .max(100, "Password must be at most 100 characters"),
 });
 
 interface ErrorMessageWrapperProps {
@@ -33,14 +32,14 @@ const ErrorMessageWrapper: React.FC<ErrorMessageWrapperProps> = ({
 }) => (
   <div
     style={{
-      color: children ? 'red' : 'transparent',
-      fontSize: '0.9rem',
-      textAlign: 'center',
-      marginTop: '0.2rem',
-      minHeight: '1.7rem',
+      color: children ? "red" : "transparent",
+      fontSize: "0.9rem",
+      textAlign: "center",
+      marginTop: "0.2rem",
+      minHeight: "1.7rem",
     }}
   >
-    {children || ' '}
+    {children || " "}
   </div>
 );
 
@@ -50,13 +49,13 @@ export default function Signup() {
 
   const formik = useFormik({
     initialValues: {
-      username: '',
-      password: '',
+      username: "",
+      password: "",
     },
     validationSchema: RegisterValidationSchema,
     onSubmit: async (values) => {
       await register(values.username, values.password);
-      navigate('/login');
+      navigate("/login");
     },
   });
 
@@ -71,18 +70,6 @@ export default function Signup() {
       >
         Create an account!
       </Title>
-      <Title align="center" order={4}>
-        Become a fellow gator today 🐊
-      </Title>
-      <Flex justify="center" align="center">
-        <img
-          style={{ borderBottomLeftRadius: '50%' }}
-          src="/assets/register_gator.png"
-          alt="An alligator browsing social medias on a smartphone"
-          width="250px"
-          height="250px"
-        />
-      </Flex>
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <form onSubmit={formik.handleSubmit}>
           <TextInput
@@ -117,7 +104,7 @@ export default function Signup() {
             {formik.touched.password && formik.errors.password}
           </ErrorMessageWrapper>
 
-          <Button type="submit" color="green" fullWidth mt="xs">
+          <Button type="submit" color="blue" fullWidth mt="xs">
             Sign Up
           </Button>
         </form>

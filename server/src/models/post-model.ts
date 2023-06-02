@@ -1,4 +1,4 @@
-import { InferSchemaType, Schema, model } from 'mongoose';
+import { InferSchemaType, Schema, model } from "mongoose";
 
 const postSchema = new Schema(
   {
@@ -14,4 +14,4 @@ const postSchema = new Schema(
 
 export type Post = InferSchemaType<typeof postSchema>;
 
-export const PostModel = model('Post', postSchema);
+export const PostModel = model("Post", postSchema);

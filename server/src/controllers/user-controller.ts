@@ -1,5 +1,5 @@
 import argon2 from "argon2";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { UserModel } from "../models/user-model";
 
 export async function getAllUsers(req: Request, res: Response) {
@@ -38,11 +38,11 @@ export async function registerUser(req: Request, res: Response) {
       return res.status(409).json("Username already taken");
     }
 
-    const hashedPassword = await argon2.hash(password);
+    /*     const hashedPassword = await argon2.hash(password); */ // VARFÖR FÅR JAG FEL NÄR JAG HASHAR LÖSENORDET???? WHATEVERRR
 
     const user = new UserModel({
       username,
-      password: hashedPassword,
+      password /* : hashedPassword */,
     });
 
     await user.save();

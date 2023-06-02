@@ -1,8 +1,8 @@
-import { Box } from '@mantine/core';
-import CreatePost from '../components/CreatePost';
-import Feed from '../components/Feed';
-import { Post, usePost } from '../contexts/PostContext';
-import { useUser } from '../contexts/UserContext';
+import { Box, Card } from "@mantine/core";
+import CreatePost from "../components/CreatePost";
+import Feed from "../components/MoodFeed";
+import { Post, usePost } from "../contexts/PostContext";
+import { useUser } from "../contexts/UserContext";
 
 function Home() {
   const { posts } = usePost();
@@ -14,9 +14,26 @@ function Home() {
 
   return (
     <Box>
-      {loggedInUser && <CreatePost />}
-      {sortedPosts &&
-        sortedPosts.map((post: Post) => <Feed key={post._id} post={post} />)}
+      {loggedInUser ? (
+        <CreatePost />
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Card>
+            <h2>Log in to see and make posts!</h2>
+          </Card>
+        </Box>
+      )}
+
+      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+        {sortedPosts &&
+          sortedPosts.map((post: Post) => <Feed key={post._id} post={post} />)}
+      </Box>
     </Box>
   );
 }
