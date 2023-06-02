@@ -1,6 +1,6 @@
 import argon2 from "argon2";
 import { Request, Response } from "express";
-import { UserModel } from "../models/user-model";
+import { UserModel } from "../models/user.model";
 
 export async function getAllUsers(req: Request, res: Response) {
   try {

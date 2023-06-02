@@ -1,8 +1,8 @@
 import cookieSession from "cookie-session";
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
-import postRouter from "./routes/post-routes";
-import userRouter from "./routes/user-routes";
+import postRouter from "./routes/post.routes";
+import userRouter from "./routes/user.routes";
 import dotenv from "dotenv";
 
 export const app = express();

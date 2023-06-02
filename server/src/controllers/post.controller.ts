@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import Joi from "joi";
-import { PostModel } from "../models/post-model";
+import { PostModel } from "../models/post.model";
 
 export const ensureAuthenticated = async (
   req: Request,
